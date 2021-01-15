@@ -91,13 +91,13 @@
         };
 
         async function writeUserData(user) {
-            let users = db.collection('users').doc(uid);
-            let doc = await users.get();
-
             let uid = user.uid;
             let name = user.displayName;
             let email = user.email;
             let photo = user.photoURL;
+
+            let users = db.collection('users').doc(uid);
+            let doc = await users.get();
 
             if (!doc.exists) {
                 await db.collection('users').doc(uid).set({
