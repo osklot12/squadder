@@ -68,50 +68,27 @@
             window.location.replace("squadder.html");
         };
 
-        async function signIn() {
-
-            firebase.auth()
-                .signInWithPopup(provider)
-                .then(async (result) => {
-                    /** @type {firebase.auth.OAuthCredential} */
-                    var credential = result.credential;
-
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = credential.accessToken;
-                    // The signed-in user info.
-                    var user = result.user;
-                    // ...
-                    console.log(result);
-
-                    Cookies.set("signedIn", "true", { expires: 7 });
-                    Cookies.set("uid", user.uid, { expires: 7 });
-                    Cookies.set("name", user.displayName, { expires: 7 });
-
-                    let userDoc = db.collection('users').doc(user.uid).get();
+        // Lager en funksjon som skriver i consolen når knappen trykkes på
+        function signIn() {
+            // Fant kode som gir deg et pop-up vindu til google innlogging
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                // Dette gir deg en Google token
+                var token = result.credential.accessToken;
+                // Brukeren sin info
+                var user = result.user;
+                console.log(result);
 
 
-                    if (!userDoc.exists) {
-                        await db.collection('users').doc(user.uid).set({
-                            navn: user.displayName,
-                            email: user.email,
-                            photo: user.photoURL
-                        });
-                    } else {
-                        window.location.replace("squadder.html");
-                    };
-
-                    window.location.replace("main.html");
-                }).catch((error) => {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // The email of the user's account used.
-                    var email = error.email;
-                    // The firebase.auth.AuthCredential type that was used.
-                    var credential = error.credential;
-                    // ...
-                });
-        }
+                // ...
+            }).catch(function (error) {
+                // Foretar feilmeldinger her
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // Emailen som brukeren brukte
+                var email = error.email;
+                var credential = error.credential;
+            });
+        };
 
     </script>
 
