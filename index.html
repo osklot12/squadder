@@ -64,27 +64,27 @@
         var provider = new firebase.auth.GoogleAuthProvider();
         var user;
 
+        // Function that checks if the user is already signed in
         if (Cookies.get("signedIn")) {
             window.location.replace("squadder.html");
         };
 
-        // Lager en funksjon som skriver i consolen når knappen trykkes på
+        // Function that signs you in with Google pop-up window
         function signIn() {
-            // Fant kode som gir deg et pop-up vindu til google innlogging
             firebase.auth().signInWithPopup(provider).then(function (result) {
-                // Dette gir deg en Google token
+                // Setting the Google token
                 var token = result.credential.accessToken;
-                // Brukeren sin info
+                // The users info
                 var user = result.user;
                 console.log(result);
+
+                // Calling function to write userdata to firebase
                 writeUserData(user);
 
                 // ...
             }).catch(function (error) {
-                // Foretar feilmeldinger her
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                // Emailen som brukeren brukte
                 var email = error.email;
                 var credential = error.credential;
             });
@@ -99,14 +99,25 @@
             let users = db.collection('users').doc(uid);
             let doc = await users.get();
 
+            // Checking if the user is already registred
             if (!doc.exists) {
                 await db.collection('users').doc(uid).set({
                     name: name,
                     email: email,
                     photo: photo
                 });
+                // Making cookies to keep you logged in and saving essential user information
+                Cookies.set("signedIn", "true", { expires: 7 });
+                Cookies.set("uid", uid, { expires: 7 });
+                Cookies.set("name", name, { expires: 7 });
                 window.location.replace("squadder.html");
             } else {
+                // Making cookies to keep you logged in and saving essential user information
+                Cookies.set("signedIn", "true", { expires: 7 });
+                Cookies.set("uid", uid, { expires: 7 });
+                Cookies.set("name", name, { expires: 7 });
+                // User is already registred and is taken to the main page
+                // Not overwriting the data saves the console from writes
                 window.location.replace("squadder.html");
             }
         };
