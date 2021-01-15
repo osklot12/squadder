@@ -2,6 +2,29 @@ body {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+nav {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.navEl {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 30px 5px 30px;
+}
+
+.navEl > i {
+    font-size: 25px;
+}
+
+#inboxCount {
+    margin: 5px;
+    font-size: 20px;
+}
+
 #squadder {
     margin: 50px auto;
     max-width: 1000px;

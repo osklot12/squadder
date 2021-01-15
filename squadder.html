@@ -36,7 +36,27 @@
 <body>
     <header>
         <nav>
+            <div class="navEl">
+                <h3>
+                    Squadder
+                </h3>
+            </div>
+            <div class="dummy navEl">
 
+            </div>
+            <div class="navEl">
+                <i class="fas fa-pen-square"></i>
+            </div>
+            <div class="navEl">
+                <p id="inboxCount">0</p>
+                <i class="fas fa-inbox"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-user"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-sticky-note"></i>
+            </div>
         </nav>
     </header>
     <main>
@@ -80,19 +100,19 @@
     </main>
     <footer>
         <div class="squadBlock">
-            
+
         </div>
     </footer>
     <script>
-    
+
         let db = firebase.firestore();
         let squads = document.querySelector("#squads");
 
-        async function getSquads(){
+        async function getSquads() {
             squads.innerHTML = "";
             let squadDocs = await db.collection("squads").get();
 
-            for (let squad of squadDocs.docs){
+            for (let squad of squadDocs.docs) {
                 console.log(squad.id, "=>", squad.data());
                 let data = squad.data();
                 let name = data.name;
@@ -105,7 +125,7 @@
         }
 
         getSquads();
-    
+
     </script>
 </body>
 
