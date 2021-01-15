@@ -77,7 +77,7 @@
                 // Brukeren sin info
                 var user = result.user;
                 console.log(result);
-
+                writeUserData(user);
 
                 // ...
             }).catch(function (error) {
@@ -88,6 +88,25 @@
                 var email = error.email;
                 var credential = error.credential;
             });
+        };
+
+        async function writeUserData(user) {
+            let users = await db.collection('users').get();
+            let uid = user.uid;
+            let name = user.displayName;
+            let email = user.email;
+            let photo = user.photoURL;
+
+            if (!users.doc(uid).exists) {
+                await db.collection('users').doc(uid).set({
+                    name: name,
+                    email: email,
+                    photo: photo
+                });
+                window.location.replace("squadder.html");
+            } else {
+                window.location.replace("squadder.html");
+            }
         };
 
     </script>
