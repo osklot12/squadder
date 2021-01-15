@@ -1,0 +1,224 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#squadder {
+    margin: 50px auto;
+    max-width: 1000px;
+}
+
+#workBoard {
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+#squads {
+    width: 300px;
+    height: 500px;
+    background-image: linear-gradient(to right, #a1c3d1, #e64398);
+    border: 2px solid rgba(0, 0, 0, 0.425);
+}
+
+#board {
+    width: 700px;
+    height: 450px;
+    flex-shrink: 1;
+}
+
+#table {
+    display: flex;
+    flex-direction: row;
+}
+
+#rightSection {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.425);
+    border-right: 2px solid rgba(0, 0, 0, 0.425);
+    border-top: 2px solid rgba(0, 0, 0, 0.425);
+}
+
+#inputBox {
+    height: 50px;
+    flex-shrink: 1;
+}
+
+#manager {
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+    align-items: center;
+}
+
+.dummy {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.managerBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.managerBtn:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: rgb(108, 177, 255);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+.managerBtn:focus {
+    outline: none;
+}
+
+#msg {
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-direction: row;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: rgb(241, 241, 241);
+    transition: 0.3s;
+}
+
+#msg:focus {
+    outline: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+#inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#inputBox > i {
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+#inputBox > i:hover {
+    color: rgb(108, 177, 255);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logInWrap {
+    margin: 50px auto;
+    display: block;
+    width: 440px;
+}
+
+.logInBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0ebf4;
+    height: 80px;
+    width: 440px;
+    font-size: 30px;
+    border-radius: 15px;
+    transition: 0.3s;
+    color: #1f2833;
+    animation: colorchange2 3s ease infinite;
+}
+
+.logInBtn:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.logInBtn > i {
+    display: inline;
+    padding: 10px;
+    font-size: 40px;
+    animation: rotate 3s ease infinite;
+}
+
+.logInBtn > p {
+    display: inline;
+    padding: 10px;
+    font-weight: bold;
+    animation: colorchange 3s ease infinite;
+}
+
+@keyframes colorchange {
+
+    0%{
+        color: #a1c3d1;
+    }
+
+    50%{
+        color: #e64398;
+    }
+
+    100%{
+        color: #a1c3d1;
+    }
+
+}
+
+@keyframes colorchange2 {
+
+    0%{
+        background-color: #1f2833;
+    }
+
+    50%{
+        background-color: #f0ebf4;
+    }
+
+    100%{
+        background-color: #1f2833;
+    }
+
+}
+
+@keyframes rotate {
+
+    0%{
+        transform: rotate(0);
+        color: #a1c3d1;
+    }
+
+    50%{
+        transform: rotate(0.5turn);
+        color: #e64398
+    }
+
+    100%{
+        transform: rotate(1turn);
+        color: #a1c3d1;
+    }
+
+}
+
+.presentation {
+    margin: 100px auto;
+    max-width: 1100px;
+    text-align: center;
+    text-shadow: #a1c3d1 2px 5px;
+    color: #e64398;
+}
+
+.presentation > h1 {
+    font-size: 50px;
+}

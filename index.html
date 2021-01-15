@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Squadder</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDRPTtPT4HTmupVDA6rPT7S3Cnhu7iKXvA",
+            authDomain: "squadder-53ec1.firebaseapp.com",
+            databaseURL: "https://squadder-53ec1.firebaseio.com",
+            projectId: "squadder-53ec1",
+            storageBucket: "squadder-53ec1.appspot.com",
+            messagingSenderId: "184989598167",
+            appId: "1:184989598167:web:32a428e266c6aa25508b92"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+    <main>
+        <div class="presentation">
+            <h1>
+                Manage your sqauds, with Squadder.
+            </h1>
+            <p>
+                A communication plaform for business, school and family.
+            </p>
+        </div>
+        <div class="logInWrap">
+            <div class="logInBtn" onclick="signIn();">
+                <i class="fab fa-google"></i>
+                <p>
+                    Login with Google!
+                </p>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        var db = firebase.firestore();
+        var provider = new firebase.auth.GoogleAuthProvider();
+        var user;
+
+        if (Cookies.get("signedIn")) {
+            window.location.replace("squadder.html");
+        };
+
+        async function signIn() {
+
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then(async (result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    var credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    // ...
+                    console.log(result);
+
+                    Cookies.set("signedIn", "true", { expires: 7 });
+                    Cookies.set("uid", user.uid, { expires: 7 });
+                    Cookies.set("name", user.displayName, { expires: 7 });
+
+                    let userDoc = db.collection('users').doc(user.uid).get();
+
+
+                    if (!userDoc.exists) {
+                        await db.collection('users').doc(user.uid).set({
+                            navn: user.displayName,
+                            email: user.email,
+                            photo: user.photoURL
+                        });
+                    } else {
+                        window.location.replace("squadder.html");
+                    };
+
+                    window.location.replace("main.html");
+                }).catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>
