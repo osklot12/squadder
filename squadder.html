@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Squadder</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDRPTtPT4HTmupVDA6rPT7S3Cnhu7iKXvA",
+            authDomain: "squadder-53ec1.firebaseapp.com",
+            databaseURL: "https://squadder-53ec1.firebaseio.com",
+            projectId: "squadder-53ec1",
+            storageBucket: "squadder-53ec1.appspot.com",
+            messagingSenderId: "184989598167",
+            appId: "1:184989598167:web:32a428e266c6aa25508b92"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+
+        </nav>
+    </header>
+    <main>
+        <div id="squadder">
+            <div id="manager">
+                <button class="managerBtn">
+                    <i class="fas fa-plus-circle"></i>
+                    Create Squad
+                </button>
+                <button class="managerBtn">
+                    <i class="fas fa-user-friends"></i>
+                    Manage friends
+                </button>
+                <div class="dummy"></div>
+                <button class="managerBtn">
+                    <i class="fas fa-tasks"></i>
+                    Create task
+                </button>
+                <button class="managerBtn">
+                    <i class="fas fa-poll"></i>
+                    Create poll
+                </button>
+            </div>
+            <div id="workBoard">
+                <div id="table">
+                    <div id="squads">
+
+                    </div>
+                    <div id="rightSection">
+                        <div id="board">
+
+                        </div>
+                        <div id="inputBox">
+                            <input type="text" id="msg">
+                            <!---<i class="fas fa-paper-plane"></i>-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="squadBlock">
+            
+        </div>
+    </footer>
+    <script>
+    
+        let db = firebase.firestore();
+        let squads = document.querySelector("#squads");
+
+        async function getSquads(){
+            squads.innerHTML = "";
+            let squadDocs = await db.collection("squads").get();
+
+            for (let squad of squadDocs.docs){
+                console.log(squad.id, "=>", squad.data());
+                let data = squad.data();
+                let name = data.name;
+
+                squads.innerHTML += `
+
+                `;
+
+            }
+        }
+
+        getSquads();
+    
+    </script>
+</body>
+
+</html>
