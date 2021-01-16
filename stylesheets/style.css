@@ -8,6 +8,29 @@ nav {
     margin: 10px;
 }
 
+.newsBar {
+    background: url(../resources/websitebackground_dimmed.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+.newsBar > i {
+    float: right;
+    margin: 10px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.newsBar > div > p > a {
+    color: #f0ebf4;
+}
+
+.newsTxt {
+    padding: 40px;
+    line-height: 20px;
+}
+
 .navEl {
     display: flex;
     flex-direction: row;
@@ -16,13 +39,20 @@ nav {
     margin: 5px 30px 5px 30px;
 }
 
-.navEl > i {
-    font-size: 25px;
+.navEl > h3:hover {
+    cursor: default;
 }
 
-#inboxCount {
-    margin: 5px;
-    font-size: 20px;
+.navEl > i {
+    font-size: 25px;
+    transition: 0.2s;
+}
+
+.navEl > i:hover {
+    animation: navEl 0.4s ease;
+    cursor: pointer;
+    color: #e64398;
+    transition: 0.2s;
 }
 
 #squadder {
@@ -89,12 +119,16 @@ nav {
     transition: 0.3s;
     border-radius: 10px;
     font-family: 'Josefin Sans', sans-serif;
+    background: url(../resources/websitebackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
 }
 
 .managerBtn:hover {
     cursor: pointer;
     transition: 0.3s;
-    color: rgb(108, 177, 255);
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -244,4 +278,205 @@ nav {
 
 .presentation > h1 {
     font-size: 50px;
+}
+
+@keyframes navEl {
+    0%{
+        transform: rotate(0);
+    }
+
+    50%{
+        transform: rotate(0.1turn);
+    }
+
+    100%{
+        transform: rotate(0turn);
+    }
+
+}
+
+#createSquad {
+    background-color: #1f2833;
+    width: 450px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    color: #f0ebf4;
+    z-index: 10;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+#dimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+}
+
+#createSquad > i {
+    float: right;
+    margin: 10px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.overlayTitle {
+    background-color: #a1c3d1;
+    color: #1f2833;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px 20px 10px 30px;
+    text-transform: uppercase;
+}
+
+.fillout {
+    margin: 30px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.fillout > div > h3 {
+    font-size: 30px;
+}
+
+.fillout > div {
+    margin: 20px 0px 20px 0px;
+}
+
+.filloutName > div > input {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.filloutName > div > input:focus {
+    outline: none;
+    transition: 0.2s;
+}
+
+.fillout > div > i {
+    font-size: 40px;
+    animation: addMem 2s ease infinite;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputDiv > i {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.fa-check {
+    color: rgb(18, 223, 18);
+}
+
+.inputDiv > .fa-times {
+    color: red;
+    display: none;
+}
+
+#takenStatus {
+    color: red;
+    font-size: 12px;
+}
+
+#notTaken {
+    display: none;
+}
+
+.filloutMembers > i:hover {
+    cursor: pointer;
+}
+
+@keyframes addMem {
+    0%{
+        color: #f0ebf4;
+    }
+
+    50%{
+        color: #f0ebf471;
+    }
+
+    100%{
+        color: #f0ebf4;
+    }
+
+}
+
+.userInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.userInput > i {
+    font-size: 20px;
+    margin-left: 20px;
+    color: red;
+}
+
+.userInput > i:hover {
+    cursor: pointer;
+}
+
+.memberInput {
+    outline: none;
+}
+
+.memberInput {
+    width: 300px;
+    height: 30px;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+}
+
+#memBlock > p {
+    color: #a1c3d1;
+    font-size: 20px;
+    animation: shadowBlink 3s ease infinite;
+}
+
+@keyframes shadowBlink {
+    0%{
+        color: #e64398;
+    }
+
+    25%{
+        color: #a1c3d1;
+    }
+
+    50%{
+        color: #e64398;
+    }
+
+    75%{
+        color: #a1c3d1;
+    }
+
+    100%{
+        color: #e64398;
+    }
 }

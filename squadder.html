@@ -10,12 +10,18 @@
         integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheets/style.css">
     <title>Squadder</title>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -48,7 +54,6 @@
                 <i class="fas fa-pen-square"></i>
             </div>
             <div class="navEl">
-                <p id="inboxCount">0</p>
                 <i class="fas fa-inbox"></i>
             </div>
             <div class="navEl">
@@ -58,6 +63,21 @@
                 <i class="far fa-sticky-note"></i>
             </div>
         </nav>
+        <div class="newsBar">
+            <i class="fas fa-times"></i>
+            <div class="newsTxt">
+                <h3>
+                    Welcome to Squadder Beta!
+                </h3>
+                <p>
+                    Welcome to the free communcation platform, Squadder! Squadder is in a beta phase at the moment and
+                    might
+                    not have all the functions working as well as some bugs. We are happy that you chose to try us out!
+                    If
+                    you need help or have questions, click <a href="">here.</a>
+                </p>
+            </div>
+        </div>
     </header>
     <main>
         <div id="squadder">
@@ -97,6 +117,42 @@
 
             </div>
         </div>
+        <div id="dimmer"></div>
+        <div id="createSquad">
+            <div class="overlayTitle">
+                <h2>
+                    <i class="fas fa-plus-circle"></i>
+                    Create Squad
+                </h2>
+            </div>
+            <div class="fillout">
+                <div class="filloutName">
+                    <h3>
+                        Squad name
+                    </h3>
+                    <div class="inputDiv">
+                        <input type="text" maxlength="25" id="squadName" onchange onpropertychange onkeyuponpaste
+                            oninput="checkName(event)">
+                        <i class="fas fa-check" id="notTaken"></i>
+                        <i class="fas fa-times" id="alreadyTaken"></i>
+                    </div>
+                    <p id="takenStatus"></p>
+                </div>
+                <div class="filloutMembers">
+                    <h3>
+                        Add members
+                    </h3>
+                    <p>
+                        (Members need to be added by their UID)
+                    </p>
+                    <div id="memBlock"></div>
+                    <i class="fas fa-plus-circle" onclick="addUser();"></i>
+                </div>
+                <button>
+                    Create squad
+                </button>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="squadBlock">
@@ -105,8 +161,108 @@
     </footer>
     <script>
 
+        // Setting variables for later script
         let db = firebase.firestore();
         let squads = document.querySelector("#squads");
+        let redX = document.querySelector("#alreadyTaken");
+        let greenCheck = document.querySelector("#notTaken");
+        let takenTxt = document.querySelector("#takenStatus");
+        let memBlock = document.querySelector("#memBlock");
+
+        // Checking the squad name in the input field
+        async function checkName(event) {
+            let squadInput = event.target;
+            let inputTxt = squadInput.value.replace(/\s/g, '');
+            // Downloads data from the sqauds collection from firestore
+            let squads = await db.collection('squads');
+            let takenName = await squads.where("name", "==", inputTxt).get();
+            // Finds out how many documents already have this name
+            let size = takenName.size;
+
+            if (size >= 1) {
+                // The name is taken
+                redX.style.display = "block";
+                greenCheck.style.display = "none";
+                takenTxt.innerHTML = "The name " + "'" + inputTxt + "'" + " is already in use. Try something else!";
+                squadInput.dataset.valid = 0;
+            } else {
+                // The name is free to use
+                redX.style.display = "none";
+                greenCheck.style.display = "block";
+                takenTxt.innerHTML = "";
+                squadInput.dataset.valid = 1;
+            }
+
+            // Checks if the string only contains whitespace
+            if (!inputTxt.replace(/\s/g, '').length) {
+                redX.style.display = "block";
+                greenCheck.style.display = "none";
+                takenTxt.innerHTML = "You cannot leave this textbox blank! Be creative!";
+            }
+        };
+
+        let inputNumber = 0;
+        let activeInputs = 0;
+
+        // Adds another text input to add a new user
+        function addUser() {
+            inputNumber++;
+            // Only lets you open another text input if you dont have any active already
+            if (activeInputs < 1) {
+                memBlock.innerHTML += `
+                <div class="userInput" id="userInput${inputNumber}">
+                    <input type="text" id="userName${inputNumber}" data-number="${inputNumber}" class="memberInput" onchange onpropertychange onkeyuponpaste
+                        oninput="checkUser(event)">
+                    <i class="fas fa-minus" id="minusIcon${inputNumber}" data-number="${inputNumber}" onclick="removeUser(event);"></i>
+                </div>
+                `;
+                activeInputs++;
+                return (inputNumber);
+            } else {
+                console.log("You already have an active user input! Finish it first")
+            }
+        };
+
+        // Removes an input for uid
+        function removeUser(event) {
+            // Getting elements needed from DOM
+            let target = event.target;
+            let targetId = ("#userInput" + target.dataset.number);
+            let targetInput = document.querySelector(targetId);
+            // Removes the targeted elements
+            targetInput.remove();
+            // Removes a count to make it possible to open another input
+            activeInputs = activeInputs - 1;
+        };
+
+        async function checkUser(event) {
+            // Sets variables for the value of the input
+            let userName = event.target;
+            let userTxt = userName.value;
+            
+            // Compares with written uid with uid from firebase
+            let dbUser = await db.collection('users').doc(userTxt).get();
+            if (!dbUser.exists){
+                // No such user
+                console.log("This user does not exist");
+            } else {
+                // A match has been found
+                console.log("Match found!");
+                let targetUid = dbUser.id;
+                let targetName = dbUser.data().name;
+                console.log(targetName);
+
+                let addedUser = document.createElement("P");
+                addedUser.innerHTML = targetName;
+
+                let targetDivId = ("#userInput" + userName.dataset.number);
+                let targetDiv = document.querySelector(targetDivId);
+
+                memBlock.appendChild(addedUser);
+                targetDiv.remove();
+                activeInputs = activeInputs - 1;
+            }
+        };
 
         async function getSquads() {
             squads.innerHTML = "";
