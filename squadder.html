@@ -271,14 +271,14 @@
                     let checkUid = checkUser.dataset.uid;
 
                     if (checkUid == userTxt) {
-                        let duplicate = 1;
-                        return;
+                        duplicate = 1;
+                        console.log("This user is already added!")
                     }
                 }
             }
 
             if (duplicate > 0 || activeUid == userTxt) {
-                console.log("Cant add yourself or a user twice!");
+                console.log("Cant add yourself or another user twice!");
             } else {
                 // Compares with written uid with uid from firebase
                 let dbUser = await db.collection('users').doc(userTxt).get();
