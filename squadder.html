@@ -148,9 +148,12 @@
                     <div id="memBlock"></div>
                     <i class="fas fa-plus-circle" onclick="addUser();"></i>
                 </div>
-                <button>
+                <button onclick="createSquad();" id="createSquadBtn">
                     Create squad
                 </button>
+                <p onclick="cancelSquad();" class="cancelA">
+                    Cancel
+                </p>
             </div>
         </div>
     </main>
@@ -172,7 +175,9 @@
         // Checking the squad name in the input field
         async function checkName(event) {
             let squadInput = event.target;
+            // Removes the spaces in the string
             let inputTxt = squadInput.value.replace(/\s/g, '');
+            squadInput.value = inputTxt;
             // Downloads data from the sqauds collection from firestore
             let squads = await db.collection('squads');
             let takenName = await squads.where("name", "==", inputTxt).get();
@@ -239,28 +244,55 @@
             // Sets variables for the value of the input
             let userName = event.target;
             let userTxt = userName.value;
-            
-            // Compares with written uid with uid from firebase
-            let dbUser = await db.collection('users').doc(userTxt).get();
-            if (!dbUser.exists){
-                // No such user
-                console.log("This user does not exist");
+
+            // Declares the duplicate variable
+            let duplicate = 0;
+
+            // Gets the uid for the active user
+            let activeUid = Cookies.get("uid");
+
+            // Checks if the user is already added
+            let writtenUsers = document.querySelectorAll(".userPrint");
+            if (writtenUsers.length > 0) {
+                for (let i = 0; i < writtenUsers.length; i++) {
+                    let checkUser = writtenUsers[i];
+                    let checkUid = checkUser.innerHTML;
+
+                    if (checkUid == userTxt) {
+                        let duplicate = 1;
+                        return;
+                    }
+                }
+            }
+
+            if (duplicate > 0 || activeUid == userTxt) {
+                // Compares with written uid with uid from firebase
+                let dbUser = await db.collection('users').doc(userTxt).get();
+                if (!dbUser.exists) {
+                    // No such user
+                    console.log("This user does not exist");
+                } else {
+                    // A match has been found
+                    console.log("Match found!");
+                    let targetUid = dbUser.id;
+                    let targetName = dbUser.data().name;
+                    console.log(targetName);
+
+                    // Creating a DOM element that contains data for the added user
+                    let addedUser = document.createElement("P");
+                    addedUser.innerHTML = targetName;
+                    addedUser.className = "userPrint";
+                    addedUser.dataset.uid = userTxt;
+
+                    let targetDivId = ("#userInput" + userName.dataset.number);
+                    let targetDiv = document.querySelector(targetDivId);
+
+                    memBlock.appendChild(addedUser);
+                    targetDiv.remove();
+                    activeInputs = activeInputs - 1;
+                }
             } else {
-                // A match has been found
-                console.log("Match found!");
-                let targetUid = dbUser.id;
-                let targetName = dbUser.data().name;
-                console.log(targetName);
-
-                let addedUser = document.createElement("P");
-                addedUser.innerHTML = targetName;
-
-                let targetDivId = ("#userInput" + userName.dataset.number);
-                let targetDiv = document.querySelector(targetDivId);
-
-                memBlock.appendChild(addedUser);
-                targetDiv.remove();
-                activeInputs = activeInputs - 1;
+                console.log("Cant add yourself or a user twice!");
             }
         };
 
@@ -278,6 +310,62 @@
                 `;
 
             }
+        }
+
+        async function createSquad() {
+            // Getting all the added users from the DOM
+            let addedUsers = document.querySelectorAll(".userPrint");
+
+            // Checks if the username is valid
+            let squad = document.querySelector("#squadName");
+            let squadName = squad.value;
+            let validation = squad.dataset.valid;
+
+            if (addedUsers.length > 0 && validation > 0) {
+                console.log("Creating Squad...")
+                // Makes a document for the Squad in firebase
+                await db.collection('squads').add({
+                    name: squadName
+                })
+                    .then(function (docRef) {
+                        console.log("Squad written with ID: ", docRef.id);
+                        let squadKey = docRef.id;
+                        createConnections(squadKey);
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding document: ", error);
+                    });
+            } else {
+                // No user has been added and an error message will be printed
+                console.log("You need to add at least one user in order to create Squad, as well as having a valid name for the Squad!");
+            }
+        };
+
+        async function createConnections(squadKey) {
+            // Getting all the added users from the DOM
+            let addedUsers = document.querySelectorAll(".userPrint");
+
+            // Going through each user using a for loop
+            for (let i = 0; i < addedUsers.length; i++) {
+                let targetUser = addedUsers[i];
+                console.log("Adding user to firebase: " + targetUser.innerHTML + ", " + targetUser.dataset.uid);
+
+                // Makes a document in firebase for targeted user
+                let suName = targetUser.innerHTML;
+                let suUid = targetUser.dataset.uid;
+                await db.collection('s-u-connections').doc().set({
+                    name: suName,
+                    uid: suUid,
+                    squad: squadKey
+                });
+            }
+
+            // Successfully created squad as well as the user connections to squad
+            console.log("Successfully created connections!")
+        };
+
+        function cancelSquad() {
+
         }
 
         getSquads();

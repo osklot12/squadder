@@ -480,3 +480,44 @@ nav {
         color: #e64398;
     }
 }
+
+#createSquadBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #e64398;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+#createSquadBtn:hover {
+    color: #1f2833;
+    background-color: #a1c3d1;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#createSquadBtn:focus {
+    outline: none;
+}
+
+.cancelA {
+    color: #f0ebf4;
+    transition: 0.3s;
+    text-decoration: underline;
+}
+
+.cancelA:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #a1c3d1;
+}
