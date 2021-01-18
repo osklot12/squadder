@@ -384,6 +384,18 @@
             // Successfully created squad as well as the user connections to squad
             console.log("Successfully created connections!")
 
+            // Cleaning the text input and added users
+
+            let squadName = document.querySelector("#squadName");
+            let users = document.querySelectorAll(".userPrint");
+            
+            squadName.value = "";
+
+            for (let i = 0; i < users.length; i++) {
+                let user = users[i];
+                user.remove();
+            }
+
             // Hiding the overlay and showing success message
             let squadBlock = document.querySelector("#createSquad");
             squadBlock.style.display = "none";
