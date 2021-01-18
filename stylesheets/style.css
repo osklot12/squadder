@@ -610,3 +610,7 @@ nav {
 #taskBox > h2 {
     font-size: 40px;
 }
+
+.noSquadsMsg {
+    margin: 20px;
+}
