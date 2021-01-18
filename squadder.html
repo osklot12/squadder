@@ -190,6 +190,9 @@
         let greenCheck = document.querySelector("#notTaken");
         let takenTxt = document.querySelector("#takenStatus");
         let memBlock = document.querySelector("#memBlock");
+        let board = document.querySelector("#board");
+
+        let messageInput = document.querySelector("#msg");
 
         // Gets the uid and name for the active user
         let activeUid = Cookies.get("uid");
@@ -479,8 +482,8 @@
 
                     // Making the HTML for the targeted document
                     squads.innerHTML += `
-                        <div class="squadBox" data-id="${squadId}" id="squadBox${counter}" onclick="getMessages(event);">
-                            <p class="squadBoxP">
+                        <div class="squadBox" data-id="${squadId}" data-number="${counter}" id="squadBox${counter}" onclick="getMessages(event);">
+                            <p class="squadBoxP" data-number="${counter}" data-id="${squadId}" onclick="getMessages(event);">
                                 ${squadName}
                             </p>
                             <div class="dummy"></div>
@@ -498,10 +501,121 @@
             }
         };
 
+        // Gets the messages for a squad from firebase
+        async function getMessages(event) {
+            // Getting information on the clicked squad
+            let squad = event.target;
+            let squadId = squad.dataset.id;
+
+            // Cleaning the innerHTML of board
+            board.innerHTML = "";
+
+            // Changing data for the text input
+            let txtInput = document.querySelector("#msg");
+            txtInput.dataset.squad = squadId;
+
+            // Retrieving all the messages linked to the squad
+            let messages = await db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").get();
+
+            // Printing all the messages to the DOM
+            for (let message of messages.docs) {
+                // Setting variables to make things easier
+                let data = message.data();
+
+                // Retrieving data on who sent the message
+                let sender = await db.collection('users').doc(data.from).get();
+                let senderName = sender.data().name;
+
+                // Checking if the message was written by you or not
+                if (data.from == activeUid) {
+                    // Making a message bubble sent by you
+                    board.innerHTML += `
+                        <div class="msg">
+                            <div class="dummy"></div>
+                            <div class="msgYou">
+                                <div>
+                                    <h3 class="msgName">
+                                        You
+                                    </h3>
+                                </div>
+                                <div>
+                                    <p class="MsgTxt">
+                                        ${data.message}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Making a message bubble sent by someone else
+                    board.innerHTML += `
+                        <div class="msg">
+                            <div class="msgAnother">
+                                <div>
+                                    <h3 class="msgName">
+                                        ${senderName}
+                                    </h3>
+                                </div>
+                                <div>
+                                    <p class="MsgTxt">
+                                        ${data.message}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+        };
+
+        // Listen for the enter key press while text input is active
+        document.body.addEventListener('keyup', function (e) {
+            if (e.keyCode == 13 && messageBox.focus) {
+                // Calling the message function
+                pushMsg();
+            }
+        });
+
+        async function pushMsg() {
+            // Getting data from the text input
+            let txt = messageInput.value;
+            let squadId = messageInput.dataset.squad;
+
+            // Checking if the text input is blank
+            let txtCheck = txt.replace(/\s/g, '');
+            if (txtCheck.length > 0) {
+                // Writing data to firebase
+                await db.collection('messages').doc().set({
+                    message: txt,
+                    from: activeUid,
+                    squad: squadId,
+                    timestamp: firebase.firestore.Timestamp.fromDate(new Date())
+                });
+
+                // Cleaning text input and printing success message to console
+                messageInput.value = "";
+                console.log("Message was successfully sent!");
+            } else {
+                console.log("Text input cannot be blank!");
+            }
+        }
+
+        // Listening to messages collection for added documents
+        db.collection("messages").where("squad", "==", "25Gi0XvqRJbUMNyJARpW")
+            .onSnapshot(function (querySnapshot) {
+                var messages = [];
+                querySnapshot.forEach(function (doc) {
+                    messages.push(doc.data().name);
+                });
+                console.log("New message was added!");
+            });
+
+        // Retrieving data on Squads from firebase
         getSquads();
 
         // Only for testing on local host
-        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 }); 
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
 
     </script>
 </body>
