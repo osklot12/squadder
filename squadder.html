@@ -434,6 +434,7 @@
             // Hides the dimmer
             let dimmer = document.querySelector("#dimmer");
             dimmer.style.display = "none";
+            getSquads();
         };
 
         // Retrieving Squads from firebase
@@ -475,7 +476,8 @@
 
         getSquads();
 
-        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+        // Only for testing on local host
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 }); 
 
     </script>
 </body>
