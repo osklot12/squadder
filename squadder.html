@@ -103,7 +103,7 @@
             <div id="workBoard">
                 <div id="table">
                     <div id="squads">
-                        
+
                     </div>
                     <div id="rightSection">
                         <div id="board">
@@ -458,31 +458,41 @@
             // Getting the s-u-connections for the active user
             let connections = await db.collection('s-u-connections').where("uid", "==", activeUid).get();
 
-            // Declaring a counting variable
-            let counter = 0;
+            // Checking if the active user has any Squads to display
+            if (connections.length > 0) {
 
-            // Using for loop to get information from each s-u-connection
-            for (let link of connections.docs) {
-                let data = link.data();
-                let squadId = data.squad;
-                
-                // Getting information on the Squad linked with the ID
-                let squadDoc = await db.collection('squads').doc(squadId).get();
-                let squadName = squadDoc.data().name;
-                console.log(squadName);
+                // Declaring a counting variable
+                let counter = 0;
 
-                // Adding value to a counting variable
-                counter++;
+                // Using for loop to get information from each s-u-connection
+                for (let link of connections.docs) {
+                    let data = link.data();
+                    let squadId = data.squad;
 
-                // Making the HTML for the targeted document
+                    // Getting information on the Squad linked with the ID
+                    let squadDoc = await db.collection('squads').doc(squadId).get();
+                    let squadName = squadDoc.data().name;
+                    console.log(squadName);
+
+                    // Adding value to a counting variable
+                    counter++;
+
+                    // Making the HTML for the targeted document
+                    squads.innerHTML += `
+                        <div class="squadBox" data-id="${squadId}" id="squadBox${counter}" onclick="getMessages(event);">
+                            <p class="squadBoxP">
+                                ${squadName}
+                            </p>
+                            <div class="dummy"></div>
+                            <i class="fas fa-info-circle" onclick="squadInfo();"></i>
+                        </div>
+                `;
+                }
+            } else {
                 squads.innerHTML += `
-                <div class="squadBox" data-id="${squadId}" id="squadBox${counter}" onclick="getMessages(event);">
-                    <p class="squadBoxP">
-                        ${squadName}
+                    <p>
+                        You have no Squads yet. Make your first Squad by clicking the button above!
                     </p>
-                    <div class="dummy"></div>
-                    <i class="fas fa-info-circle" onclick="squadInfo();"></i>
-                </div>
                 `;
             }
         };
@@ -490,7 +500,7 @@
         getSquads();
 
         // Only for testing on local host
-        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 }); 
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
 
     </script>
 </body>
