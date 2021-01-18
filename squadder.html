@@ -482,7 +482,7 @@
 
                     // Making the HTML for the targeted document
                     squads.innerHTML += `
-                        <div class="squadBox" data-id="${squadId}" data-number="${counter}" id="squadBox${counter}" onclick="getMessages(event);">
+                        <div class="squadBox" data-id="${squadId}" data-number="${counter}" id="squadBox${counter}" onclick="squadClicked(event);">
                             <p class="squadBoxP" data-number="${counter}" data-id="${squadId}" onclick="getMessages(event);">
                                 ${squadName}
                             </p>
@@ -491,6 +491,9 @@
                         </div>
                 `;
                 }
+
+                // Calling on function that choses squad upon enter
+                enterSquad();
             } else {
                 // The active user has no squads to display
                 squads.innerHTML += `
@@ -502,6 +505,7 @@
         };
 
         // Gets the messages for a squad from firebase
+        // Function is currently not in used, using msgListen() instead
         async function getMessages(event) {
             // Getting information on the clicked squad
             let squad = event.target;
@@ -566,7 +570,6 @@
                     `;
                 }
             }
-
         };
 
         // Listen for the enter key press while text input is active
@@ -601,18 +604,97 @@
             }
         }
 
-        // Listening to messages collection for added documents
-        db.collection("messages").where("squad", "==", "Nerxryg3KM0Sf0UJFaiE")
-            .onSnapshot(function (querySnapshot) {
-                var messages = [];
-                querySnapshot.forEach(function (doc) {
-                    messages.push(doc.data().name);
-                });
-                console.log("New message was added!");
-            });
-
-        // Retrieving data on Squads from firebase
+        // Getting all the Squads from firebase
         getSquads();
+
+        // Making a function that choses which squad to display when entering site
+        function enterSquad() {
+            // Getting all squads from DOM and picking the first one
+            let squads = document.querySelectorAll(".squadBox");
+            let displaySquad = squads[0];
+
+            messageInput.dataset.squad = displaySquad.dataset.id;
+            msgListen();
+        }
+
+        // Making a function that sets variables when a Squad is clicked
+        function squadClicked(event) {
+            // Getting information on the clicked squad
+            let squad = event.target;
+            let squadId = squad.dataset.id;
+
+            // Changing data for the text input
+            let txtInput = document.querySelector("#msg");
+            txtInput.dataset.squad = squadId;
+
+            // Calling listener function
+            msgListen();
+        };
+
+        // Listening to messages collection for added documents
+        function msgListen() {
+            // Cleaning the innerHTML of board
+            board.innerHTML = "";
+
+            // Making snapshot function that listens to changes in collection
+            db.collection("messages").where("squad", "==", messageInput.dataset.squad).orderBy("timestamp", "asc")
+                .onSnapshot(function (snapshot) {
+                    snapshot.docChanges().forEach(async function (change) {
+                        if (change.type === "added") {
+                            console.log("New message: ", change.doc.data().message);
+
+                            // Setting variables to make things easier
+                            let data = change.doc.data();
+
+                            // Getting data on the user who sent the message
+                            let sender = await db.collection('users').doc(data.from).get();
+                            let senderName = sender.data().name;
+
+                            if (data.from == activeUid) {
+                                // Making a message bubble sent by you
+                                board.innerHTML += `
+                                <div class="msg">
+                                    <div class="dummy"></div>
+                                    <div class="msgYou">
+                                        <div>
+                                            <h3 class="msgName">
+                                                You
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <p class="MsgTxt">
+                                                ${data.message}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            } else {
+                                // Making a message bubble sent by someone else
+                                board.innerHTML += `
+                                <div class="msg">
+                                    <div class="msgAnother">
+                                        <div>
+                                            <h3 class="msgName">
+                                                ${senderName}
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <p class="MsgTxt">
+                                                ${data.message}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            }
+
+                            // Scrolling to the bottom of div
+                            board.scrollTop = board.scrollHeight;
+                        }
+                    });
+                });
+        }
 
         // Only for testing on local host
         // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
