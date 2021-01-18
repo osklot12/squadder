@@ -342,11 +342,15 @@
             let squadName = squad.value;
             let validation = squad.dataset.valid;
 
+            // Gets the uid and name for the active user
+            let activeUid = Cookies.get("uid");
+
             if (addedUsers.length > 0 && validation > 0) {
                 console.log("Creating Squad...")
                 // Makes a document for the Squad in firebase
                 await db.collection('squads').add({
-                    name: squadName
+                    name: squadName,
+                    creator: activeUid
                 })
                     .then(function (docRef) {
                         console.log("Squad written with ID: ", docRef.id);
