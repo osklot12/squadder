@@ -141,7 +141,6 @@ nav {
     font-weight: bold;
     border: none;
     transition: 0.3s;
-    border-radius: 10px;
     font-family: 'Josefin Sans', sans-serif;
     background: url(../resources/websitebackground.jpg);
     background-repeat: no-repeat;
@@ -596,4 +595,18 @@ nav {
 
 #messageBoxBtn:focus {
     outline: none;
+}
+
+#taskBox {
+    background: url(../resources/websitebackground_dimmed.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+    text-align: center;
+    padding: 30px;
+}
+
+#taskBox > h2 {
+    font-size: 40px;
 }
