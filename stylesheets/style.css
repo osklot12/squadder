@@ -82,11 +82,7 @@ nav {
     transition: 0.3s;
 
     font-family: 'Josefin Sans', sans-serif;
-    background: url(../resources/websitebackground.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    color: #f0ebf4;
+    color: #1f2833;
 }
 
 .squadBox:hover {
