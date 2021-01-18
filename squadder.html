@@ -482,7 +482,7 @@
 
                     // Making the HTML for the targeted document
                     squads.innerHTML += `
-                        <div class="squadBox" data-id="${squadId}" data-number="${counter}" id="squadBox${counter}" onclick="squadClicked(event);">
+                        <div class="squadBox" data-id="${squadId}" data-number="${counter}" id="squadBox${counter}" onclick="getMessages(event);">
                             <p class="squadBoxP" data-number="${counter}" data-id="${squadId}" onclick="getMessages(event);">
                                 ${squadName}
                             </p>
@@ -505,7 +505,6 @@
         };
 
         // Gets the messages for a squad from firebase
-        // Function is currently not in used, using msgListen() instead
         async function getMessages(event) {
             // Getting information on the clicked squad
             let squad = event.target;
@@ -525,10 +524,6 @@
             for (let message of messages.docs) {
                 // Setting variables to make things easier
                 let data = message.data();
-
-                // Retrieving data on who sent the message
-                let sender = await db.collection('users').doc(data.from).get();
-                let senderName = sender.data().name;
 
                 // Checking if the message was written by you or not
                 if (data.from == activeUid) {
@@ -557,7 +552,7 @@
                             <div class="msgAnother">
                                 <div>
                                     <h3 class="msgName">
-                                        ${senderName}
+                                        ${data.name}
                                     </h3>
                                 </div>
                                 <div>
@@ -585,6 +580,10 @@
             let txt = messageInput.value;
             let squadId = messageInput.dataset.squad;
 
+            // Retrieving data on who sent the message
+            let sender = await db.collection('users').doc(activeUid).get();
+            let senderName = sender.data().name;
+
             // Checking if the text input is blank
             let txtCheck = txt.replace(/\s/g, '');
             if (txtCheck.length > 0) {
@@ -592,6 +591,7 @@
                 await db.collection('messages').doc().set({
                     message: txt,
                     from: activeUid,
+                    name: senderName,
                     squad: squadId,
                     timestamp: firebase.firestore.Timestamp.fromDate(new Date())
                 });
