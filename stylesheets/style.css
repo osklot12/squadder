@@ -523,3 +523,8 @@ nav {
     transition: 0.3s;
     color: #a1c3d1;
 }
+
+.filloutMembers {
+    height: 200px;
+    overflow: auto;
+}
