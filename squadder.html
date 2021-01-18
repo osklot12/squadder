@@ -459,7 +459,7 @@
             let connections = await db.collection('s-u-connections').where("uid", "==", activeUid).get();
 
             // Checking if the active user has any Squads to display
-            if (connections.length > 0) {
+            if (connections.docs.length > 0) {
 
                 // Declaring a counting variable
                 let counter = 0;
@@ -501,7 +501,7 @@
         getSquads();
 
         // Only for testing on local host
-        // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 }); 
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 }); 
 
     </script>
 </body>
