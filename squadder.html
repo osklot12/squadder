@@ -213,6 +213,7 @@
             if (!inputTxt.replace(/\s/g, '').length) {
                 redX.style.display = "block";
                 greenCheck.style.display = "none";
+                squadInput.dataset.valid = 0;
                 takenTxt.innerHTML = "You cannot leave this textbox blank! Be creative!";
             }
         };
