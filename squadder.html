@@ -266,6 +266,8 @@
             }
 
             if (duplicate > 0 || activeUid == userTxt) {
+                console.log("Cant add yourself or a user twice!");
+            } else {
                 // Compares with written uid with uid from firebase
                 let dbUser = await db.collection('users').doc(userTxt).get();
                 if (!dbUser.exists) {
@@ -291,8 +293,6 @@
                     targetDiv.remove();
                     activeInputs = activeInputs - 1;
                 }
-            } else {
-                console.log("Cant add yourself or a user twice!");
             }
         };
 
