@@ -82,7 +82,7 @@
     <main>
         <div id="squadder">
             <div id="manager">
-                <button class="managerBtn">
+                <button class="managerBtn" onclick="displayCreateSquad();">
                     <i class="fas fa-plus-circle"></i>
                     Create Squad
                 </button>
@@ -171,6 +171,17 @@
         let greenCheck = document.querySelector("#notTaken");
         let takenTxt = document.querySelector("#takenStatus");
         let memBlock = document.querySelector("#memBlock");
+
+        // Displaying the create Squad block
+        function displayCreateSquad() {
+            // Getting elements from DOM
+            let squadBlock = document.querySelector("#createSquad");
+            let dimmer = document.querySelector("#dimmer");
+
+            // Showing the overlay
+            squadBlock.style.display = "block";
+            dimmer.style.display = "block";
+        };
 
         // Checking the squad name in the input field
         async function checkName(event) {
@@ -364,8 +375,26 @@
             console.log("Successfully created connections!")
         };
 
+        // Cancels the creation of a Squad
         function cancelSquad() {
+            // Getting elements from DOM
+            let squadBlock = document.querySelector("#createSquad");
+            let dimmer = document.querySelector("#dimmer");
 
+            let squadName = document.querySelector("#squadName");
+            let users = document.querySelectorAll(".userPrint");
+
+            // Cleaning the text input and added users
+            squadName.value = "";
+
+            for (let i = 0; i < users.length; i++) {
+                let user = users[i];
+                user.remove();
+            }
+
+            // Hiding the overlay
+            squadBlock.style.display = "none";
+            dimmer.style.display = "none";
         }
 
         getSquads();
