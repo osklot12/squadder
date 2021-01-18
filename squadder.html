@@ -103,7 +103,7 @@
             <div id="workBoard">
                 <div id="table">
                     <div id="squads">
-
+                        
                     </div>
                     <div id="rightSection">
                         <div id="board">
@@ -442,19 +442,36 @@
             squads.innerHTML = "";
 
             // Getting the s-u-connections for the active user
-            let connections = await db.collection('s-u-connections').where("uid", "==", activeUid);
+            let connections = await db.collection('s-u-connections').where("uid", "==", activeUid).get();
 
-            for (let squad of squadDocs.docs) {
-                console.log(squad.id, "=>", squad.data());
-                let data = squad.data();
-                let name = data.name;
+            // Declaring a counting variable
+            let counter = 0;
 
+            // Using for loop to get information from each s-u-connection
+            for (let link of connections.docs) {
+                let data = link.data();
+                let squadId = data.squad;
+                
+                // Getting information on the Squad linked with the ID
+                let squadDoc = await db.collection('squads').doc(squadId).get();
+                let squadName = squadDoc.data().name;
+                console.log(squadName);
+
+                // Adding value to a counting variable
+                counter++;
+
+                // Making the HTML for the targeted document
                 squads.innerHTML += `
-
+                <div class="squadBox" data-id="${squadId}" id="squadBox${counter}" onclick="getMessages(event);">
+                    <p class="squadBoxP">
+                        ${squadName}
+                    </p>
+                    <div class="dummy"></div>
+                    <i class="fas fa-info-circle" onclick="squadInfo();"></i>
+                </div>
                 `;
-
             }
-        }
+        };
 
         getSquads();
 

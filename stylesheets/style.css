@@ -68,6 +68,36 @@ nav {
     width: 300px;
     height: 500px;
     border: 2px solid rgba(0, 0, 0, 0.425);
+    overflow: auto;
+}
+
+.squadBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin: 10px auto 10px auto;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+
+    font-family: 'Josefin Sans', sans-serif;
+    background: url(../resources/websitebackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+.squadBox:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.squadBox > i {
+    font-size: 20px;
 }
 
 #board {
