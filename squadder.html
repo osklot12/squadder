@@ -156,6 +156,14 @@
                 </p>
             </div>
         </div>
+        <div id="messageBox">
+            <p id="messageBoxMsg">
+
+            </p>
+            <button id="messageBoxBtn" onclick="hideMessageBox();">
+                OK
+            </button>
+        </div>
     </main>
     <footer>
         <div class="squadBlock">
@@ -375,6 +383,14 @@
 
             // Successfully created squad as well as the user connections to squad
             console.log("Successfully created connections!")
+
+            // Hiding the overlay and showing success message
+            let squadBlock = document.querySelector("#createSquad");
+            squadBlock.style.display = "none";
+            
+            let msg = document.querySelector("#messageBoxMsg");
+            msg.innerHTML = "The squad was successfully created!"
+            displayMessageBox();
         };
 
         // Cancels the creation of a Squad
@@ -398,6 +414,23 @@
             squadBlock.style.display = "none";
             dimmer.style.display = "none";
         }
+
+        // Displays the message box
+        function displayMessageBox() {
+            let msgBox = document.querySelector("#messageBox");
+            msgBox.style.display = "block";
+        };
+
+        // Hides the message overlay
+        function hideMessageBox() {
+            // Hides the message box
+            let msgBox = document.querySelector("#messageBox");
+            msgBox.style.display = "none";
+
+            // Hides the dimmer
+            let dimmer = document.querySelector("#dimmer");
+            immer.style.display = "none";
+        };
 
         getSquads();
 

@@ -528,3 +528,42 @@ nav {
     height: 200px;
     overflow: auto;
 }
+
+#messageBox {
+    background-color: #1f2833;
+    border-radius: 10px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#messageBoxBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #e64398;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+#messageBoxBtn:hover {
+    color: #1f2833;
+    background-color: #a1c3d1;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#messageBoxBtn:focus {
+    outline: none;
+}
