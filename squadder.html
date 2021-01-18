@@ -256,7 +256,7 @@
             if (writtenUsers.length > 0) {
                 for (let i = 0; i < writtenUsers.length; i++) {
                     let checkUser = writtenUsers[i];
-                    let checkUid = checkUser.innerHTML;
+                    let checkUid = checkUser.dataset.uid;
 
                     if (checkUid == userTxt) {
                         let duplicate = 1;
@@ -295,6 +295,7 @@
                 }
             }
         };
+
 
         async function getSquads() {
             squads.innerHTML = "";
