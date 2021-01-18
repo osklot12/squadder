@@ -180,6 +180,10 @@
         let takenTxt = document.querySelector("#takenStatus");
         let memBlock = document.querySelector("#memBlock");
 
+        // Gets the uid and name for the active user
+        let activeUid = Cookies.get("uid");
+        let activeName = Cookies.get("name");
+
         // Displaying the create Squad block
         function displayCreateSquad() {
             // Getting elements from DOM
@@ -268,9 +272,6 @@
             // Declares the duplicate variable
             let duplicate = 0;
 
-            // Gets the uid for the active user
-            let activeUid = Cookies.get("uid");
-
             // Checks if the user is already added
             let writtenUsers = document.querySelectorAll(".userPrint");
             if (writtenUsers.length > 0) {
@@ -316,23 +317,6 @@
             }
         };
 
-
-        async function getSquads() {
-            squads.innerHTML = "";
-            let squadDocs = await db.collection("squads").get();
-
-            for (let squad of squadDocs.docs) {
-                console.log(squad.id, "=>", squad.data());
-                let data = squad.data();
-                let name = data.name;
-
-                squads.innerHTML += `
-
-                `;
-
-            }
-        }
-
         async function createSquad() {
             // Getting all the added users from the DOM
             let addedUsers = document.querySelectorAll(".userPrint");
@@ -341,9 +325,6 @@
             let squad = document.querySelector("#squadName");
             let squadName = squad.value;
             let validation = squad.dataset.valid;
-
-            // Gets the uid and name for the active user
-            let activeUid = Cookies.get("uid");
 
             if (addedUsers.length > 0 && validation > 0) {
                 console.log("Creating Squad...")
@@ -369,10 +350,6 @@
         async function createConnections(squadKey) {
             // Getting all the added users from the DOM
             let addedUsers = document.querySelectorAll(".userPrint");
-
-            // Gets the uid and name for the active user
-            let activeUid = Cookies.get("uid");
-            let activeName = Cookies.get("name");
 
             // Going through each user using a for loop
             for (let i = 0; i < addedUsers.length; i++) {
@@ -459,7 +436,29 @@
             dimmer.style.display = "none";
         };
 
+        // Retrieving Squads from firebase
+        async function getSquads() {
+            // Cleaning the innerHTML of the div
+            squads.innerHTML = "";
+
+            // Getting the s-u-connections for the active user
+            let connections = await db.collection('s-u-connections').where("uid", "==", activeUid);
+
+            for (let squad of squadDocs.docs) {
+                console.log(squad.id, "=>", squad.data());
+                let data = squad.data();
+                let name = data.name;
+
+                squads.innerHTML += `
+
+                `;
+
+            }
+        }
+
         getSquads();
+
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
 
     </script>
 </body>
