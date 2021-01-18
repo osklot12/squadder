@@ -158,7 +158,7 @@
         </div>
         <div id="messageBox">
             <p id="messageBoxMsg">
-                
+
             </p>
             <button id="messageBoxBtn" onclick="hideMessageBox();">
                 OK
@@ -366,6 +366,10 @@
             // Getting all the added users from the DOM
             let addedUsers = document.querySelectorAll(".userPrint");
 
+            // Gets the uid and name for the active user
+            let activeUid = Cookies.get("uid");
+            let activeName = Cookies.get("name");
+
             // Going through each user using a for loop
             for (let i = 0; i < addedUsers.length; i++) {
                 let targetUser = addedUsers[i];
@@ -381,6 +385,13 @@
                 });
             }
 
+            // Adding the active user as a connection to the Squad
+            await db.collection('s-u-connections').doc().set({
+                name: activeName,
+                uid: activeUid,
+                squad: squadKey
+            });
+
             // Successfully created squad as well as the user connections to squad
             console.log("Successfully created connections!")
 
@@ -388,7 +399,7 @@
 
             let squadName = document.querySelector("#squadName");
             let users = document.querySelectorAll(".userPrint");
-            
+
             squadName.value = "";
 
             for (let i = 0; i < users.length; i++) {
@@ -399,7 +410,7 @@
             // Hiding the overlay and showing success message
             let squadBlock = document.querySelector("#createSquad");
             squadBlock.style.display = "none";
-            
+
             let msg = document.querySelector("#messageBoxMsg");
             msg.innerHTML = "The squad was successfully created!"
             displayMessageBox();
