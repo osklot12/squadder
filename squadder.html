@@ -504,6 +504,8 @@
             }
         };
 
+        let listening = 0;
+
         // Gets the messages for a squad from firebase
         async function getMessages(event) {
             // Getting information on the clicked squad
@@ -517,14 +519,18 @@
             let txtInput = document.querySelector("#msg");
             txtInput.dataset.squad = squadId;
 
-            // Retrieving all the messages linked to the squad
-            // let messages = await db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").get();
+            // Checking if a listener is already active
+           if (listening > 0) {
+               unsubscribe();
+           }
 
-            db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
+           listening++;
+
+            // Creating a listener for the messages related to the Squad in firebase
+            let unsubscribe = db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
                 for (let changes of snapshot.docChanges()) {
                     if (changes.type === "added") {
                         let data = changes.doc.data();
-                        console.log("henter melding");
 
                         // Checking if the message was written by you or not
                         if (data.from == activeUid) {
@@ -546,6 +552,7 @@
                                     </div>
                                 </div>
                             `;
+                            board.scrollTop = board.scrollHeight;
                         } else {
                             // Making a message bubble sent by someone else
                             board.innerHTML += `
@@ -564,13 +571,16 @@
                                     </div>
                                 </div>
                             `;
+                            board.scrollTop = board.scrollHeight;
                         }
                     }
                 }
-            })
-        };
-            
+            });
 
+            // Return for later unsubscribing to listener
+            console.log("Unsubscribe was returned!")
+            return unsubscribe;
+        };
 
         // Listen for the enter key press while text input is active
         document.body.addEventListener('keyup', function (e) {
@@ -604,6 +614,7 @@
                 // Cleaning text input and printing success message to console
                 messageInput.value = "";
                 console.log("Message was successfully sent!");
+                board.scrollTop = board.scrollHeight;
             } else {
                 console.log("Text input cannot be blank!");
             }
