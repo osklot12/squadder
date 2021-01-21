@@ -518,54 +518,59 @@
             txtInput.dataset.squad = squadId;
 
             // Retrieving all the messages linked to the squad
-            let messages = await db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").get();
+            // let messages = await db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").get();
 
-            // Printing all the messages to the DOM
-            for (let message of messages.docs) {
-                // Setting variables to make things easier
-                let data = message.data();
+            db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
+                for (let changes of snapshot.docChanges()) {
+                    if (changes.type === "added") {
+                        let data = changes.doc.data();
+                        console.log("henter melding");
 
-                // Checking if the message was written by you or not
-                if (data.from == activeUid) {
-                    // Making a message bubble sent by you
-                    board.innerHTML += `
-                        <div class="msg">
-                            <div class="dummy"></div>
-                            <div class="msgYou">
-                                <div>
-                                    <h3 class="msgName">
-                                        You
-                                    </h3>
+                        // Checking if the message was written by you or not
+                        if (data.from == activeUid) {
+                            // Making a message bubble sent by you
+                            board.innerHTML += `
+                                <div class="msg">
+                                    <div class="dummy"></div>
+                                    <div class="msgYou">
+                                        <div>
+                                            <h3 class="msgName">
+                                                You
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <p class="MsgTxt">
+                                                ${data.message}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p class="MsgTxt">
-                                        ${data.message}
-                                    </p>
+                            `;
+                        } else {
+                            // Making a message bubble sent by someone else
+                            board.innerHTML += `
+                                <div class="msg">
+                                    <div class="msgAnother">
+                                        <div>
+                                            <h3 class="msgName">
+                                                ${data.name}
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <p class="MsgTxt">
+                                                ${data.message}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Making a message bubble sent by someone else
-                    board.innerHTML += `
-                        <div class="msg">
-                            <div class="msgAnother">
-                                <div>
-                                    <h3 class="msgName">
-                                        ${data.name}
-                                    </h3>
-                                </div>
-                                <div>
-                                    <p class="MsgTxt">
-                                        ${data.message}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                            `;
+                        }
+                    }
                 }
-            }
+            })
         };
+            
+
 
         // Listen for the enter key press while text input is active
         document.body.addEventListener('keyup', function (e) {
