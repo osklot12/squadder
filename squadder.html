@@ -516,6 +516,9 @@
             // Cleaning the innerHTML of board
             board.innerHTML = "";
 
+            // Changing css of clicked squad
+            
+
             // Changing data for the text input
             let txtInput = document.querySelector("#msg");
             txtInput.dataset.squad = squadId;
@@ -523,7 +526,7 @@
             // Checking if a listener is already active
             unsubscribe();
 
-           listening++;
+            listening++;
 
             // Creating a listener for the messages related to the Squad in firebase
             unsubscribe = db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
