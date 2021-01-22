@@ -505,6 +505,7 @@
         };
 
         let listening = 0;
+        let unsubscribe = function(){};
 
         // Gets the messages for a squad from firebase
         async function getMessages(event) {
@@ -520,14 +521,12 @@
             txtInput.dataset.squad = squadId;
 
             // Checking if a listener is already active
-           if (listening > 0) {
-               unsubscribe();
-           }
+            unsubscribe();
 
            listening++;
 
             // Creating a listener for the messages related to the Squad in firebase
-            let unsubscribe = db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
+            unsubscribe = db.collection('messages').where("squad", "==", squadId).orderBy("timestamp", "asc").onSnapshot(async function (snapshot) {
                 for (let changes of snapshot.docChanges()) {
                     if (changes.type === "added") {
                         let data = changes.doc.data();
@@ -578,9 +577,10 @@
             });
 
             // Return for later unsubscribing to listener
-            console.log("Unsubscribe was returned!")
-            return unsubscribe;
+            console.log("Unsubscribe was returned!");
         };
+
+        unsubscribe();
 
         // Listen for the enter key press while text input is active
         document.body.addEventListener('keyup', function (e) {
