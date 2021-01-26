@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Squadder</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDRPTtPT4HTmupVDA6rPT7S3Cnhu7iKXvA",
+            authDomain: "squadder-53ec1.firebaseapp.com",
+            databaseURL: "https://squadder-53ec1.firebaseio.com",
+            projectId: "squadder-53ec1",
+            storageBucket: "squadder-53ec1.appspot.com",
+            messagingSenderId: "184989598167",
+            appId: "1:184989598167:web:32a428e266c6aa25508b92"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="navEl">
+                <h3>
+                    Squadder
+                </h3>
+            </div>
+            <div class="dummy navEl">
+
+            </div>
+            <div class="navEl">
+                <i class="fas fa-pen-square" onclick="window.location.replace('squadder.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-user" onclick="window.location.replace('profile.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-sticky-note"></i>
+            </div>
+        </nav>
+        <div class="newsBar">
+            <i class="fas fa-times"></i>
+            <div class="newsTxt">
+                <h3>
+                    Welcome to Squadder Beta!
+                </h3>
+                <p>
+                    Welcome to the free communcation platform, Squadder! Squadder is in a beta phase at the moment and
+                    might
+                    not have all the functions working as well as some bugs. We are happy that you chose to try us out!
+                    If
+                    you need help or have questions, click <a href="">here.</a>
+                </p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="profileDiv">
+            <div id="profileOverview">
+
+            </div>
+            <div id="profileRight">
+                <div id="profileBlock">
+                    <div id="profileInfo">
+
+                    </div>
+                    <div id="profileOperations">
+                        <button>
+                            Edit profile
+                        </button>
+                        <button onclick="logOut();">
+                            Log out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        let db = firebase.firestore();
+
+        // Only for testing on local host
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+        Cookies.set("name", "Oskar Lothe", { expires: 7 });
+
+        let uid = Cookies.get("uid");
+        let name = Cookies.get("name");
+
+        let user;
+        let userData;
+
+        let userInfo = document.querySelector("#profileInfo");
+
+
+
+        async function getUserData() {
+            user = await db.collection('users').doc(uid).get();
+            console.log(user);
+            userData = user.data();
+            userInfo.innerHTML += `
+                <div id="profilePhoto">
+                    <img src="${userData.photo}" alt="">
+                </div>
+                <div id="profileName">
+                    ${userData.name}
+                </div>
+                <div id="profileUid">
+                    ${user.id}
+                </div>
+            `;
+        };
+
+        function logOut() {
+            Cookies.remove("uid");
+            Cookies.remove("name");
+            window.location.replace('index.html');
+        };
+
+        getUserData();
+
+    </script>
+</body>
+
+</html>

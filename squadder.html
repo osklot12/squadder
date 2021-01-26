@@ -51,13 +51,13 @@
 
             </div>
             <div class="navEl">
-                <i class="fas fa-pen-square"></i>
+                <i class="fas fa-pen-square" onclick="window.location.replace('squadder.html')"></i>
             </div>
             <div class="navEl">
                 <i class="fas fa-inbox"></i>
             </div>
             <div class="navEl">
-                <i class="far fa-user"></i>
+                <i class="far fa-user" onclick="window.location.replace('profile.html')"></i>
             </div>
             <div class="navEl">
                 <i class="far fa-sticky-note"></i>
@@ -474,9 +474,10 @@
                     let squadId = data.squad;
 
                     // Getting information on the Squad linked with the ID
+                    console.log("Retrieving data on squad...");
                     let squadDoc = await db.collection('squads').doc(squadId).get();
                     let squadName = squadDoc.data().name;
-                    console.log("Retrieving data on squad '", squadName, "'...");
+                    console.log("Data downloaded for squad '", squadName, "'...");
 
                     // Adding value to a counting variable
                     counter++;
@@ -617,6 +618,10 @@
             }
         }
 
+        // Only for testing on local host
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+        Cookies.set("name", "Oskar Lothe", { expires: 7 });
+
         // Getting all the Squads from firebase
         getSquads();
 
@@ -628,11 +633,6 @@
 
             displaySquad.click();
         }
-
-        // Only for testing on local host
-        // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
-        // Cookies.set("name", "Oskar Lothe", { expires: 7 });
-
     </script>
 </body>
 

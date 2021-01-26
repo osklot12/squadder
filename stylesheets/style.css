@@ -654,3 +654,95 @@ nav {
 .noSquadsMsg {
     margin: 20px;
 }
+
+#profileBlock {
+    width: 400px;
+    background-color: #f0ebf4;
+    border-radius: 20px;
+}
+
+#profilePhoto {
+    background: url(../resources/websitebackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 5px;
+    border-radius: 70px;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+#profilePhoto > img {
+    display: block;
+    border-radius: 50px;
+    width: 96px;
+}
+
+#profileInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e64398;
+    width: 400px;
+}
+
+#profileInfo > div {
+    margin: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #f0ebf4;
+}
+
+#profileOperations {
+    display: flex;
+    flex-direction: column;
+}
+
+#profileOperations > button {
+    margin: 10px;
+    font-size: 20px;
+    border: none;
+    padding: 10px;
+    transition: 0.3s;
+    font-family: 'Josefin Sans', sans-serif;
+    background: url(../resources/websitebackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #f0ebf4;
+}
+
+#profileOperations > button:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+#profileOperations > button:focus {
+    outline: none;
+}
+
+#profileOverview {
+    width: 500px;
+    background-color: #a1c3d1;
+    height: 2000px;
+}
+
+#profileRight {
+    display: inline-block;
+}
+
+#profileDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 40px;
+}
+
+#profileDiv > div {
+    margin: 40px;
+}
