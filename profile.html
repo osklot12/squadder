@@ -106,8 +106,8 @@
         let db = firebase.firestore();
 
         // Only for testing on local host
-        // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
-        // Cookies.set("name", "Oskar Lothe", { expires: 7 });
+         Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+         Cookies.set("name", "Oskar Lothe", { expires: 7 });
 
         let uid = Cookies.get("uid");
         let name = Cookies.get("name");
@@ -117,20 +117,17 @@
 
         let userInfo = document.querySelector("#profileInfo");
 
-
-
         async function getUserData() {
             user = await db.collection('users').doc(uid).get();
-            console.log(user);
             userData = user.data();
             userInfo.innerHTML += `
                 <div id="profilePhoto">
                     <img src="${userData.photo}" alt="">
                 </div>
                 <div id="profileName">
-                    ${userData.name}
+                    <h3>${userData.name}</h3>
                 </div>
-                <div id="profileUid">
+                <div id="profileUid" title="This is your UID!">
                     ${user.id}
                 </div>
             `;
