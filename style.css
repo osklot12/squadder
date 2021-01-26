@@ -1,0 +1,656 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.newsBar {
+    background: url(../resources/websitebackground_dimmed.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+.newsBar > i {
+    float: right;
+    margin: 10px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.newsBar > div > p > a {
+    color: #f0ebf4;
+}
+
+.newsTxt {
+    padding: 40px;
+    line-height: 20px;
+}
+
+.navEl {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 30px 5px 30px;
+}
+
+.navEl > h3:hover {
+    cursor: default;
+}
+
+.navEl > i {
+    font-size: 25px;
+    transition: 0.2s;
+}
+
+.navEl > i:hover {
+    animation: navEl 0.4s ease;
+    cursor: pointer;
+    color: #e64398;
+    transition: 0.2s;
+}
+
+#squadder {
+    margin: 50px auto;
+    max-width: 1000px;
+}
+
+#workBoard {
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+#squads {
+    width: 300px;
+    height: 500px;
+    border: 2px solid rgba(0, 0, 0, 0.425);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.squadBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    margin: 10px auto 10px auto;
+    padding: 5px 10px 5px 10px;
+    transition: 0.3s;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #1f2833;
+}
+
+.squadBox:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.squadBox > i {
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.squadBox > i:hover {
+    color: #e64398;
+    transition: 0.3s;
+}
+
+#board {
+    width: 700px;
+    height: 450px;
+    flex-shrink: 1;
+    overflow: auto;
+}
+
+.msg {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.msgYou {
+    background-color: #a1c3d1;
+    padding: 2px 10px 2px 10px;
+    display: inline-block;
+    flex-direction: column;
+    max-width: 500px;
+    min-width: 100px;
+}
+
+.msgAnother {
+    background-color: #e64398;
+    padding: 2px 10px 2px 10px;
+    display: inline-block;
+    flex-direction: column;
+    max-width: 500px;
+    min-width: 100px;
+}
+
+.msg > div > div > h3 {
+    margin: 10px 0px 10px 0px;
+    font-size: 16px;
+}
+
+.msg > div > div > p {
+    margin: 10px 0px 10px 0px;
+}
+
+#table {
+    display: flex;
+    flex-direction: row;
+}
+
+#rightSection {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.425);
+    border-right: 2px solid rgba(0, 0, 0, 0.425);
+    border-top: 2px solid rgba(0, 0, 0, 0.425);
+}
+
+#inputBox {
+    height: 50px;
+    flex-shrink: 1;
+}
+
+#manager {
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+    align-items: center;
+}
+
+.dummy {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.managerBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    font-family: 'Josefin Sans', sans-serif;
+    background: url(../resources/websitebackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+.managerBtn:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+.managerBtn:focus {
+    outline: none;
+}
+
+#msg {
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-direction: row;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: rgb(241, 241, 241);
+    transition: 0.3s;
+}
+
+#msg:focus {
+    outline: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+#inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#inputBox > i {
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+#inputBox > i:hover {
+    color: rgb(108, 177, 255);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logInWrap {
+    margin: 50px auto;
+    display: block;
+    width: 440px;
+}
+
+.logInBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0ebf4;
+    height: 80px;
+    width: 440px;
+    font-size: 30px;
+    border-radius: 15px;
+    transition: 0.3s;
+    color: #1f2833;
+    animation: colorchange2 3s ease infinite;
+}
+
+.logInBtn:hover {
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.logInBtn > i {
+    display: inline;
+    padding: 10px;
+    font-size: 40px;
+    animation: rotate 3s ease infinite;
+}
+
+.logInBtn > p {
+    display: inline;
+    padding: 10px;
+    font-weight: bold;
+    animation: colorchange 3s ease infinite;
+}
+
+@keyframes colorchange {
+
+    0%{
+        color: #a1c3d1;
+    }
+
+    50%{
+        color: #e64398;
+    }
+
+    100%{
+        color: #a1c3d1;
+    }
+
+}
+
+@keyframes colorchange2 {
+
+    0%{
+        background-color: #1f2833;
+    }
+
+    50%{
+        background-color: #f0ebf4;
+    }
+
+    100%{
+        background-color: #1f2833;
+    }
+
+}
+
+@keyframes rotate {
+
+    0%{
+        transform: rotate(0);
+        color: #a1c3d1;
+    }
+
+    50%{
+        transform: rotate(0.5turn);
+        color: #e64398
+    }
+
+    100%{
+        transform: rotate(1turn);
+        color: #a1c3d1;
+    }
+
+}
+
+.presentation {
+    margin: 100px auto;
+    max-width: 1100px;
+    text-align: center;
+    text-shadow: #a1c3d1 2px 5px;
+    color: #e64398;
+}
+
+.presentation > h1 {
+    font-size: 50px;
+}
+
+@keyframes navEl {
+    0%{
+        transform: rotate(0);
+    }
+
+    50%{
+        transform: rotate(0.1turn);
+    }
+
+    100%{
+        transform: rotate(0turn);
+    }
+
+}
+
+#createSquad {
+    background-color: #1f2833;
+    width: 450px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    color: #f0ebf4;
+    z-index: 10;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#dimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#createSquad > i {
+    float: right;
+    margin: 10px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.overlayTitle {
+    background-color: #a1c3d1;
+    color: #1f2833;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px 20px 10px 30px;
+    text-transform: uppercase;
+}
+
+.fillout {
+    margin: 30px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.fillout > div > h3 {
+    font-size: 30px;
+}
+
+.fillout > div {
+    margin: 20px 0px 20px 0px;
+}
+
+.filloutName > div > input {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.filloutName > div > input:focus {
+    outline: none;
+    transition: 0.2s;
+}
+
+.fillout > div > i {
+    font-size: 40px;
+    animation: addMem 2s ease infinite;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputDiv > i {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.fa-check {
+    color: rgb(18, 223, 18);
+}
+
+.inputDiv > .fa-times {
+    color: red;
+    display: none;
+}
+
+#takenStatus {
+    color: red;
+    font-size: 12px;
+}
+
+#notTaken {
+    display: none;
+}
+
+.filloutMembers > i:hover {
+    cursor: pointer;
+}
+
+@keyframes addMem {
+    0%{
+        color: #f0ebf4;
+    }
+
+    50%{
+        color: #f0ebf471;
+    }
+
+    100%{
+        color: #f0ebf4;
+    }
+
+}
+
+.userInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.userInput > i {
+    font-size: 20px;
+    margin-left: 20px;
+    color: red;
+}
+
+.userInput > i:hover {
+    cursor: pointer;
+}
+
+.memberInput {
+    outline: none;
+}
+
+.memberInput {
+    width: 300px;
+    height: 30px;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+}
+
+#memBlock > p {
+    color: #a1c3d1;
+    font-size: 20px;
+    animation: shadowBlink 3s ease infinite;
+}
+
+@keyframes shadowBlink {
+    0%{
+        color: #e64398;
+    }
+
+    25%{
+        color: #a1c3d1;
+    }
+
+    50%{
+        color: #e64398;
+    }
+
+    75%{
+        color: #a1c3d1;
+    }
+
+    100%{
+        color: #e64398;
+    }
+}
+
+#createSquadBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #e64398;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+#createSquadBtn:hover {
+    color: #1f2833;
+    background-color: #a1c3d1;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#createSquadBtn:focus {
+    outline: none;
+}
+
+.cancelA {
+    color: #f0ebf4;
+    transition: 0.3s;
+    text-decoration: underline;
+}
+
+.cancelA:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #a1c3d1;
+}
+
+.filloutMembers {
+    height: 200px;
+    overflow: auto;
+}
+
+#messageBox {
+    background-color: #1f2833;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    color: #f0ebf4;
+    padding: 20px;
+    display: none;
+}
+
+
+#messageBoxBtn {
+    height: 40px;
+    padding: 5px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #e64398;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+    width: 70px;
+}
+
+#messageBoxBtn:hover {
+    color: #1f2833;
+    background-color: #a1c3d1;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#messageBoxBtn:focus {
+    outline: none;
+}
+
+#taskBox {
+    background: url(../resources/websitebackground_dimmed.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+    text-align: center;
+    padding: 30px;
+}
+
+#taskBox > h2 {
+    font-size: 40px;
+}
+
+.noSquadsMsg {
+    margin: 20px;
+}
