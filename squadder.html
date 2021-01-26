@@ -477,7 +477,7 @@
                     console.log("Retrieving data on squad...");
                     let squadDoc = await db.collection('squads').doc(squadId).get();
                     let squadName = squadDoc.data().name;
-                    console.log("Data downloaded for squad '", squadName, "'...");
+                    console.log("Data downloaded for squad '", squadName, "'!");
 
                     // Adding value to a counting variable
                     counter++;
