@@ -659,6 +659,7 @@ nav {
     width: 400px;
     background-color: #f0ebf4;
     border-radius: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }
 
 #profilePhoto {
@@ -709,15 +710,13 @@ nav {
     padding: 10px;
     transition: 0.3s;
     font-family: 'Josefin Sans', sans-serif;
-    background: url(../resources/websitebackground.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #f0ebf4;
+    background-color: transparent;
+    color: #1f2833;
 }
 
 #profileOperations > button:hover {
     cursor: pointer;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    text-decoration: underline;
     border-radius: 20px;
     transition: 0.3s;
 }
@@ -747,16 +746,9 @@ nav {
     margin: 40px;
 }
 
-#profileName {
-    background-color: #a1c3d1;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
-}
-
 #profileName > h3{
     font-size: 30px;
-    margin: 0;
+    margin: 10px;
     display: inline-block;
-    color: #1f2833;
+    color: #f0ebf4;
 }
