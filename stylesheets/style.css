@@ -564,7 +564,7 @@ nav {
     text-transform: uppercase;
     font-weight: bold;
     border: none;
-    transition: 0.3s;
+    transition: 0.15s;
     border-radius: 10px;
     font-family: 'Josefin Sans', sans-serif;
     background-color: #e64398;
@@ -577,7 +577,7 @@ nav {
 #createSquadBtn:hover {
     color: #1f2833;
     background-color: #a1c3d1;
-    transition: 0.3s;
+    transition: 0.15s;
     cursor: pointer;
 }
 
@@ -791,4 +791,92 @@ input:focus {
 
 #list {
     position: absolute;
+}
+
+.troubleshootingCell {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.troubleshootingCell>div {
+    color: rgba(0, 0, 0, 0.473);
+    margin: 10px;
+}
+
+.troubleshootingCell>div:hover {
+    color: rgba(0, 0, 0, 0.473);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.createUsernameWrap {
+    background-color: #1f2833;
+    border-radius: 20px;
+    padding: 20px;
+    width: 500px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    margin: 30px auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+#welcomeText {
+    text-align: center;
+    color: #f0ebf4;
+    font-size: 20px;
+    margin: 10px;
+}
+
+#usernameWarning {
+    color: #f0ebf480;
+    text-align: center;
+    margin: 10px;
+}
+
+#usernameInput {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    height: 30px;
+    width: 280px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+    border: 2px solid #1f2833;
+    margin-bottom: 10px;
+}
+
+#usernameInput:focus {
+    font-size: 25px;
+    height: 35px;
+    width: 300px;
+}
+
+#setUsernameBtn {
+    height: 40px;
+    padding: 10px;
+    font-size: 15px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    transition: 0.15s;
+    border-radius: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #e64398;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f0ebf4;
+}
+
+#setUsernameBtn:hover {
+    color: #1f2833;
+    background-color: #a1c3d1;
+    transition: 0.15s;
+    cursor: pointer;
 }

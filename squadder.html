@@ -226,6 +226,15 @@
                 'Squadder is currently optimized for computer only, but we are currently working on a version optimized for mobile devices. With Squadder mobile, your experience with the platform will be increased and staying connected will be easier like never before. Stay tuned!']
         ];
 
+        // Checking if user is logged in
+        function checkLoginStatus() {
+            if (!Cookies.get('signedIn')) {
+                window.location.replace('index.html')
+            }
+        };
+
+        checkLoginStatus();
+
         let newsTitle = news[0];
         let newsContent = news[1];
 
@@ -689,8 +698,8 @@
         }
 
         // Only for testing on local host
-        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
-        Cookies.set("name", "Oskar Lothe", { expires: 7 });
+        // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+        // Cookies.set("name", "Oskar Lothe", { expires: 7 });
 
         // Getting all the Squads from firebase
         getSquads();

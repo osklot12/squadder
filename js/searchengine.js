@@ -2,6 +2,7 @@ let list = document.querySelector('#list');
 let users;
 let people = [];
 let photos = [];
+let uids = [];
 async function getUsers() {
     users = await db.collection('users').get();
     addObjects(users.docs);
@@ -14,6 +15,7 @@ function addObjects(array) {
         let name = user.data().name.toLowerCase();
         people.push({ name: name });
         photos.push({ photo: user.data().photo });
+        uids.push({ uid: user.id })
     }
 };
 
@@ -23,7 +25,7 @@ function setList(group) {
     for (let user of group) {
         user.name = user.name.toLowerCase();
         list.innerHTML += `
-            <li>
+            <li class="list-group-item">
                 <img src="" alt="">
                 ${user.name}
             </li>
