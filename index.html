@@ -49,7 +49,7 @@
                 A communication platform for business, school and family.
             </p>
         </div>
-        <div class="createUsernameWrap">
+        <div class="createUsernameWrap" id="createUserWrap">
             <div id="welcomeText">
                 Welcome to Squadder, David. Please choose your username.
             </div>
@@ -64,7 +64,7 @@
                 Take username
             </button>
         </div>
-        <div class="logInWrap">
+        <div class="logInWrap" id="logInWrap">
             <div class="logInBtn" onclick="signIn();">
                 <i class="fab fa-google"></i>
                 <p>
@@ -72,7 +72,7 @@
                 </p>
             </div>
         </div>
-        <div class="troubleshootingCell">
+        <div class="troubleshootingCell" id="troubleshootingCell">
             <div>
                 I dont have a Google Account
             </div>
@@ -86,7 +86,7 @@
         var db = firebase.firestore();
         var provider = new firebase.auth.GoogleAuthProvider();
         var user;
-        let usernameWrap = document.querySelector('#createUsernameWrap');
+        let usernameWrap = document.querySelector('#createUserWrap');
         let logInWrap = document.querySelector('#logInWrap');
         let troubleshootingCell = document.querySelector('#troubleshootingCell');
 
