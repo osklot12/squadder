@@ -89,6 +89,7 @@
         let usernameWrap = document.querySelector('#createUserWrap');
         let logInWrap = document.querySelector('#logInWrap');
         let troubleshootingCell = document.querySelector('#troubleshootingCell');
+        let welcomeText = document.querySelector('#welcomeText');
 
         // Function that checks if the user is already signed in
         if (Cookies.get("signedIn")) {
@@ -148,6 +149,7 @@
             usernameWrap.style.display = 'flex';
             logInWrap.style.display = 'none';
             troubleshootingCell.style.display = 'none';
+            welcomeText.innerHTML = 'Welcome to Squadder, ' + name + '. Please choose your username.'
         };
 
         async function checkUsername(event) {
