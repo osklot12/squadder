@@ -880,3 +880,7 @@ input:focus {
     transition: 0.15s;
     cursor: pointer;
 }
+
+button:focus {
+    outline: none;
+}

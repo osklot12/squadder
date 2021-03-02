@@ -156,8 +156,8 @@
             let input = event.target
             let inputTxt = input.value.replace(/\s/g, '');
             input.value = inputTxt;
-            let usernames = await db.collection('users');
-            let takenNames = usernames.where('username', '==', inputTxt).get();
+            let usernames = db.collection('users');
+            let takenNames = await usernames.where('username', '==', inputTxt).get();
             let size = takenNames.size;
 
             if (size >= 1) {
