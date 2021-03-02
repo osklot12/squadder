@@ -178,10 +178,12 @@
         }
 
         async function setUsername() {
+            let username = document.querySelector('#usernameInput').value;
             if (document.querySelector("#usernameInput").dataset.valid == 1) {
                 await db.collection('users').doc(uid).set({
                     name: name,
                     email: email,
+                    username: username,
                     photo: photo
                 });
                 // Making cookies to keep you logged in and saving essential user information
