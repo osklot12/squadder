@@ -27,6 +27,25 @@ nav {
 }
 
 .newsTxt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsTxt>i {
+    font-size: 30px;
+    margin: 20px;
+    transition: 0.2s;
+}
+
+.newsTxt>i:hover {
+    color: rgba(255, 255, 255, 0.61);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.textContent {
     padding: 40px;
     line-height: 20px;
 }
@@ -56,18 +75,14 @@ nav {
 }
 
 #squadder {
-    margin: 50px auto;
-    max-width: 1000px;
-}
-
-#workBoard {
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    margin: 50px;
 }
 
 #squads {
     width: 300px;
     height: 500px;
-    border: 2px solid rgba(0, 0, 0, 0.425);
+    /** border: 2px solid rgba(0, 0, 0, 0.425); **/
+    background-color: #e64398; 
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -77,35 +92,34 @@ nav {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 250px;
-    margin: 10px auto 10px auto;
+    margin: 10px;
     padding: 5px 10px 5px 10px;
-    transition: 0.3s;
+    transition: 0.15s;
     font-family: 'Josefin Sans', sans-serif;
-    color: #1f2833;
+    color: #f0ebf4;
+    overflow: hidden;
 }
 
 .squadBox:hover {
     cursor: pointer;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
-    transition: 0.3s;
+    transition: 0.15s;
 }
 
 .squadBox > i {
     font-size: 20px;
-    transition: 0.3s;
+    transition: 0.15s;
+    color: rgba(255, 255, 255, 0.692);
 }
 
 .squadBox > i:hover {
-    color: #e64398;
-    transition: 0.3s;
+    color: white;
+    transition: 0.15s;
 }
 
 #board {
-    width: 700px;
     height: 450px;
     flex-shrink: 1;
-    overflow: auto;
+    overflow-x: auto;
 }
 
 .msg {
@@ -130,6 +144,7 @@ nav {
     flex-direction: column;
     max-width: 500px;
     min-width: 100px;
+    color: #f0ebf4;
 }
 
 .msg > div > div > h3 {
@@ -150,9 +165,10 @@ nav {
     display: flex;
     flex-direction: column;
     flex-shrink: 1;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.425);
-    border-right: 2px solid rgba(0, 0, 0, 0.425);
-    border-top: 2px solid rgba(0, 0, 0, 0.425);
+    flex-grow: 1;
+    /** border-bottom: 2px solid rgba(0, 0, 0, 0.425); **/
+    /** border-right: 2px solid rgba(0, 0, 0, 0.425); **/
+    /** border-top: 2px solid rgba(0, 0, 0, 0.425); **/
 }
 
 #inputBox {
@@ -358,7 +374,7 @@ nav {
 
 }
 
-#createSquad {
+.popUp {
     background-color: #1f2833;
     width: 450px;
     position: fixed;
@@ -381,12 +397,6 @@ nav {
     width: 100%;
     height: 100%;
     display: none;
-}
-
-#createSquad > i {
-    float: right;
-    margin: 10px 15px 0px 0px;
-    font-size: 25px;
 }
 
 .overlayTitle {
@@ -751,4 +761,34 @@ nav {
     margin: 10px;
     display: inline-block;
     color: #f0ebf4;
+}
+
+.findFriend {
+    display: flex;
+    flex-direction: row;
+}
+
+#friendSearch {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+}
+
+.list-group-item {
+    list-style-type: none;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+}
+
+#list {
+    position: absolute;
 }

@@ -64,18 +64,17 @@
             </div>
         </nav>
         <div class="newsBar">
-            <i class="fas fa-times"></i>
             <div class="newsTxt">
-                <h3>
-                    Welcome to Squadder Beta!
-                </h3>
-                <p>
-                    Welcome to the free communcation platform, Squadder! Squadder is in a beta phase at the moment and
-                    might
-                    not have all the functions working as well as some bugs. We are happy that you chose to try us out!
-                    If
-                    you need help or have questions, click <a href="">here.</a>
-                </p>
+                <i class="fas fa-chevron-left" onclick="slideNews('left');"></i>
+                <div class="textContent">
+                    <h3 id="newsTitle">
+
+                    </h3>
+                    <p id="newsContent">
+
+                    </p>
+                </div>
+                <i class="fas fa-chevron-right" onclick="slideNews('right');"></i>
             </div>
         </div>
     </header>
@@ -86,7 +85,7 @@
                     <i class="fas fa-plus-circle"></i>
                     Create Squad
                 </button>
-                <button class="managerBtn">
+                <button class="managerBtn" onclick="displayManageFriends();">
                     <i class="fas fa-user-friends"></i>
                     Manage friends
                 </button>
@@ -129,7 +128,7 @@
             </div>
         </div>
         <div id="dimmer"></div>
-        <div id="createSquad">
+        <div id="createSquad" class="popUp">
             <div class="overlayTitle">
                 <h2>
                     <i class="fas fa-plus-circle"></i>
@@ -167,9 +166,31 @@
                 </p>
             </div>
         </div>
+        <div id="manageFriends" class="popUp">
+            <div class="overlayTitle">
+                <h2>
+                    <i class="fas fa-user-friends"></i>
+                    Manage friends
+                </h2>
+            </div>
+            <div class="fillout">
+                <div class="findFriend">
+                    <div id="searchBox">
+                        <input type="text" id="friendSearch">
+                        <ul class="list-group" id="list"></ul>
+                    </div>
+                    <button>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </div>
+                <div id="friendsList">
+
+                </div>
+            </div>
+        </div>
         <div id="messageBox">
             <p id="messageBoxMsg">
-
+                
             </p>
             <button id="messageBoxBtn" onclick="hideMessageBox();">
                 OK
@@ -191,22 +212,71 @@
         let takenTxt = document.querySelector("#takenStatus");
         let memBlock = document.querySelector("#memBlock");
         let board = document.querySelector("#board");
-        let unsubscribe = function(){};
+        let unsubscribe = function () { };
 
         let messageInput = document.querySelector("#msg");
+        let newsToggle = 0;
+
+        // Creating an array for all news
+        let news = [
+            ['Welcome to Squadder Beta', 'Keep track of your tasks', 'Get your Squads opinion', 'Squadder for mobile'],
+            ['Welcome to the free communcation platform, Squadder! Squadder is in a beta phase at the moment and might have some issues, but we are updating the platform regularly. News and tips will be shown here and updated as new things are added to Squadder. Thank you for chosing Squadder as your communication platform!',
+                'Squadder allows you to easily keep an eye of what tasks needs to be done, when they are due and who gave them to you. You will also be able to arrange your tasks after how to want to prioritize them. Tasks can be assigned to one single person, multiple people or a whole Squad. It is up to you to decide!',
+                'With polls you can see what the members of a Squad is into. Use polls to decide what you should make for dinner, where the next meeting should take place or who in the friend group should host a party.',
+                'Squadder is currently optimized for computer only, but we are currently working on a version optimized for mobile devices. With Squadder mobile, your experience with the platform will be increased and staying connected will be easier like never before. Stay tuned!']
+        ];
+
+        let newsTitle = news[0];
+        let newsContent = news[1];
+
+        arrangeNews(newsToggle);
 
         // Gets the uid and name for the active user
         let activeUid = Cookies.get("uid");
         let activeName = Cookies.get("name");
-        
+
+        // Creating function that changes displayed news value
+        function slideNews(slide) {
+            let lenght = news[0].length - 1;
+            console.log(lenght)
+            if (slide == 'left') {
+                newsToggle--;
+                if (newsToggle < 0) {
+                    newsToggle = lenght;
+                }
+            } else if (slide == 'right') {
+                newsToggle++;
+                if (newsToggle > lenght) {
+                    newsToggle = 0;
+                }
+
+            }
+            arrangeNews(newsToggle);
+        };
+
+        // Creating function that arranges what news to display
+        function arrangeNews(toggle) {
+            let title = document.querySelector('#newsTitle');
+            let content = document.querySelector('#newsContent');
+            title.innerHTML = newsTitle[toggle];
+            content.innerHTML = newsContent[toggle];
+        }
+
         // Displaying the create Squad block
         function displayCreateSquad() {
             // Getting elements from DOM
             let squadBlock = document.querySelector("#createSquad");
             let dimmer = document.querySelector("#dimmer");
-
             // Showing the overlay
             squadBlock.style.display = "block";
+            dimmer.style.display = "block";
+        };
+
+        // Displaying the manage friends block
+        function displayManageFriends() {
+            let mfBlock = document.querySelector("#manageFriends");
+            let dimmer = document.querySelector("#dimmer");
+            mfBlock.style.display = "block";
             dimmer.style.display = "block";
         };
 
@@ -619,8 +689,8 @@
         }
 
         // Only for testing on local host
-        // Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
-        // Cookies.set("name", "Oskar Lothe", { expires: 7 });
+        Cookies.set("uid", "zI7ZcgOLy0MPUfNxoVmqioFcoXJ3", { expires: 7 });
+        Cookies.set("name", "Oskar Lothe", { expires: 7 });
 
         // Getting all the Squads from firebase
         getSquads();
@@ -634,6 +704,7 @@
             displaySquad.click();
         }
     </script>
+    <script src="js/searchengine.js"></script>
 </body>
 
 </html>
