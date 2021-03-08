@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <title>Squadder Documents</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDRPTtPT4HTmupVDA6rPT7S3Cnhu7iKXvA",
+            authDomain: "squadder-53ec1.firebaseapp.com",
+            databaseURL: "https://squadder-53ec1.firebaseio.com",
+            projectId: "squadder-53ec1",
+            storageBucket: "squadder-53ec1.appspot.com",
+            messagingSenderId: "184989598167",
+            appId: "1:184989598167:web:32a428e266c6aa25508b92"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="navEl" id="downWards">
+                <h3 id="noMarginBot">
+                    Squadder
+                </h3>
+                <h3 id="switchFont">
+                    Documents
+                </h3>
+            </div>
+            <div class="dummy navEl">
+
+            </div>
+            <div class="navEl">
+                <i class="fas fa-pen-square" onclick="window.location.replace('squadder.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-user" onclick="window.location.replace('profile.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-sticky-note"></i>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="documentsWrap">
+            <div id="documentSearchBar">
+                <input type="text" id="documentSearch" placeholder="Search here...">
+            </div>
+            <div id="documentsList"></div>
+        </div>
+    </main>
+    <script>
+        let documents = [
+            ['Signing in to Squadder', 'What data is stored in our database?', 'Welcome to Squadder Beta'],
+            ['2. mars 2021', '2. mars 2021', '2. mars 2021'],
+            ['Guide', 'Questions', 'Patch'],
+            ['documents/singning-in-to-squadder.html', '', '']
+        ];
+
+        let list = document.querySelector('#documentsList');
+
+        let articles = [[], []];
+        function addObjects() {
+            for (let doc of documents[0]) {
+                let title = doc.toLowerCase();
+                articles[0].push({ title: title });
+            }
+        };
+        addObjects();
+
+
+        function setList(group) {
+            clearList();
+            for (let article of group) {
+                let printTitle = article.title.toUpperCase();
+                list.innerHTML += `
+                <div class="article">
+                    <div class="articleTitle">
+                        ${printTitle}
+                    </div>
+                </div>
+        `;
+            }
+            if (group.length === 0) {
+                setNoResults();
+            }
+        };
+
+        function clearList() {
+            list.innerHTML = '';
+        };
+
+        function setNoResults() {
+            list.innerHTML += `
+                <div class="noResults">
+                    NO RESULTS FOUND :(
+                </div>
+            `;
+        };
+
+        function getRelevancy(value, searchTerm) {
+            if (value === searchTerm) {
+                return 2;
+            } else if (value.startsWith(searchTerm)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        let searchInput = document.querySelector('#documentSearch');
+        searchInput.addEventListener('input', () => {
+            let value = event.target.value;
+            if (value && value.trim().length > 0) {
+                value = value.trim().toLowerCase();
+                setList(articles[0].filter(article => {
+                    return article.title.includes(value);
+                }).sort((articleA, articleB) => {
+                    return getRelevancy(articleB.title, value) - getRelevancy(articleA.title, value);
+                }));
+            } else {
+                clearList();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -884,3 +884,127 @@ input:focus {
 button:focus {
     outline: none;
 }
+
+#documentSearch {
+    width: 30vw;
+    height: 30px;
+    font-size: 20px;
+    height: 30px;
+    font-family: 'Josefin Sans', sans-serif;
+    transition: 0.2s;
+    border: 2px solid #1f2833;
+    margin-bottom: 10px;
+    padding: 5px;
+    margin: 10px 30px 10px 30px;
+}
+
+#documentSearch:focus{
+    width: 60vw;
+    transition: 0.2s;
+}
+
+#documentsWrap {
+    margin: 10px;
+}
+
+#switchFont {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    font-size: 13px;
+}
+
+#downWards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#noMarginBot {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.article {
+    margin: 30px 30px 30px 30px;
+    border-bottom: 2px solid black;
+    font-size: 25px;
+}
+
+.noResults {
+    margin: 30px 30px 30px 30px;
+    font-size: 25px;
+}
+
+.documentWrap {
+    margin: 30px 10vw 30px 10vw;
+    color: #1f2833;
+}
+
+.documentTitle {
+    margin: 20px;
+}
+
+.documentH1 {
+    margin: 10px;
+    padding-bottom: 10px;
+    font-size: 40px;
+    border-bottom: 2px solid #1f2833;
+}
+
+.documentDate {
+    margin: 10px;
+    color: #6b6b6b;
+    margin: 20px;
+}
+
+.documentContent {
+    margin: 20px;
+    line-height: 25px;
+    font-size: 18px;
+}
+
+.documentSubtitle {
+    margin: 10px;
+    font-size: 25px;
+}
+
+.documentText {
+    margin: 20px 20px 40px 20px;
+}
+
+.returnDiv {
+    margin: 10px;
+}
+
+.returnDiv>button {
+    margin: 35px;
+    border: none;
+    font-size: 40px;
+    background-color: transparent;
+    color: #1f2833;
+    transition: 0.15s;
+}
+
+.returnDiv>button:hover {
+    color: #e64398;
+    cursor: pointer;
+    transition: 0.15s;
+    animation: nod 3s ease infinite;
+}
+
+@keyframes nod {
+
+    0%{
+        transform: translate(-10px);
+    }
+
+    50%{
+        transform: translate(10px);
+    }
+
+    100%{
+        transform: translate(-10px);
+    }
+
+}

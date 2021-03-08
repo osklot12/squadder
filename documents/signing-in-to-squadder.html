@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <title>Squadder Documents</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDRPTtPT4HTmupVDA6rPT7S3Cnhu7iKXvA",
+            authDomain: "squadder-53ec1.firebaseapp.com",
+            databaseURL: "https://squadder-53ec1.firebaseio.com",
+            projectId: "squadder-53ec1",
+            storageBucket: "squadder-53ec1.appspot.com",
+            messagingSenderId: "184989598167",
+            appId: "1:184989598167:web:32a428e266c6aa25508b92"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="navEl" id="downWards">
+                <h3 id="noMarginBot">
+                    Squadder
+                </h3>
+                <h3 id="switchFont">
+                    Documents
+                </h3>
+            </div>
+            <div class="dummy navEl">
+
+            </div>
+            <div class="navEl">
+                <i class="fas fa-pen-square" onclick="window.location.replace('squadder.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-user" onclick="window.location.replace('profile.html')"></i>
+            </div>
+            <div class="navEl">
+                <i class="far fa-sticky-note"></i>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="returnDiv">
+            <button onclick="window.location.replace('../archive.html')">
+                <i class="fas fa-long-arrow-alt-left"></i>
+            </button>
+        </div>
+        <div class="documentWrap">
+            <div class="documentTitle">
+                <div class="documentH1">
+                    Signing in to Squadder
+                </div>
+                <div class="documentDate">
+                    3. mars 2021
+                </div>
+            </div>
+            <div class="documentContent">
+                <div class="documentText">
+                    Signing in to Squadder is meant to be quick and easy. It is also important that the user feels safe
+                    and
+                    secure.
+                    When you sign up with an external account to our service, we will only gather the nessacary
+                    information
+                    about you, and you will never receive any kind of promotion or advertising to your email account.
+                    In fact, you will never recieve any email from Squadder at all.
+                </div>
+                <div class="documentSubtitle">
+                    Signing in with Google
+                </div>
+                <div class="documentText">
+                    Right now, your only way of signing up to Squadder is by your Google account. Squadder is in
+                    it's
+                    early
+                    stages and creating multiple options for registration is not prioritized right now.
+                    When you click the Google button to sign up you will be rederected to a pop up window. This pop
+                    up
+                    window is provided by Google itself and is also secured by Google. The only data returned to us
+                    after
+                    signing in is already public information. That means we will not gather any private information
+                    such
+                    as
+                    your password.
+                </div>
+                <div class="documentSubtitle">
+                    Creating username
+                </div>
+                <div class="documentText">
+                    The first time you registrer with out service you will be asked to create your own personal
+                    username. This is the username that other people will have to use to connect with you on our
+                    platform.
+                    That means your username has to be unique. It also means that you cannot change your username
+                    once
+                    it is created. Racist or inappropriate usernames will not be tolerated, and your user profiles
+                    will
+                    be removed without warning, as well as all your data on our database.
+                </div>
+                <div class="documentSubtitle">
+                    Displayed name
+                </div>
+                <div class="documentText">
+                    In all Squads you will be presented with your real name. That means your messages will wear the name
+                    provided by the service you used to sign up with Squadder.
+                    Unlike your username, this name can be changed at any time by going to settings in the user page.
+                    Although this name will be displayed on your messages, it doesn't mean it makes you anonymous. By
+                    hovering over your name, people can still see your profile including your unique username.
+                    As with the username, racist or inappropriate names will result in deletion of your profile, as well
+                    as all your data on our database.
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+
+    </script>
+</body>
+
+</html>
